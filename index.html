@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For You</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    overflow:hidden;
+    color:white;
+    font-family:Georgia, serif;
+}
+
+#lyrics{
+    position:absolute;
+    top:50%;
+    width:100%;
+    text-align:center;
+    transform:translateY(-50%);
+    font-size:2em;
+}
+
+.snowflake{
+    position:absolute;
+    color:white;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-10vh);
+    }
+    to{
+        transform:translateY(110vh);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="lyrics"></div>
+
+<script>
+
+const lyrics = [
+["So, what if I call",4000],
+["And you pick up the phone?",5000],
+["And I use this holiday to make my way to your ghost",9000],
+["Oh, what if you're lonely",5000],
+["And you know I am too",4000],
+["And I get the chance to stay",3000],
+["Merry Christmas, I miss you",5000],
+["i loved u",4000]
+];
+
+let box = document.getElementById("lyrics");
+
+async function showLyrics(){
+    for(let item of lyrics){
+        box.innerHTML=item[0];
+        await new Promise(r=>setTimeout(r,item[1]));
+    }
+}
+
+showLyrics();
+
+function createSnow(){
+    let flake=document.createElement("div");
+
+    flake.className="snowflake";
+    flake.innerHTML="❅";
+
+    flake.style.left=Math.random()*100+"vw";
+    flake.style.fontSize=(10+Math.random()*20)+"px";
+    flake.style.animationDuration=(4+Math.random()*6)+"s";
+
+    document.body.appendChild(flake);
+
+    setTimeout(()=>{
+        flake.remove();
+    },10000);
+}
+
+setInterval(createSnow,120);
+
+</script>
+
+</body>
+</html>
